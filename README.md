@@ -18,7 +18,16 @@ I approached the work in following setup
 | 09 | Install Prometheus stand-alone as a Pod into CNCF k8s cluster |
 | 10 | Install a custom scraping endpoint (Java Springboot or Standalone Java) |
 | 11 | Using a HELM chart - install this as a set on CNCF K8S cluster |
-| 12 |  Use case definition and demo with CNCF K8S cluster | |
+| 12 | Use case definition and demo with CNCF K8S cluster | |
+| 13 | Install VictoriaMetrics stand-alone as a Pod into Openshift 4.5 cluster |
+| 14 | Install Grafana stand-alone as a Pod into Openshift 4.5 cluster |
+| 15 | Install Prometheus stand-alone as a Pod into Openshift 4.5 cluster |
+| 16 | Install custom scraping endpoint (Java Springboot or Standalone Java) as a Pod into Openshift 4.5 cluster |
+| 17 | Use case definition and demo with Openshift 4.5 cluster | 
+| 18 | Solution Architecture Quality - High Availability | |
+| 19 | Solution Architecture Quality - Security | |
+| 20 | Solution Architecture Quality - Performance Benchmark | |
+
 
 
 
