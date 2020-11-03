@@ -5,10 +5,21 @@ Some initial architecture and proof of concept with victoria-metrics - a time se
 
 I approached the work in following setup
 
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| Task ID | Task Name | Remarks
+| ----------- | ----------- | ------|
+| 01 | Install VictoriaMetrics stand-alone on Docker Desktop |
+| 02 | Install Grafana stand-alone on Docker Desktop |
+| 03 | Install Prometheus stand-alone on Docker Desktop | 
+| 04 | Install a custom scraping endpoint (Java Springboot or Standalone Java)|
+| 05 | Using Docker Compose - install this as a set on Docker Desktop  |
+| 06 | Use case definition and demo with Docker Desktop |
+| 07 | Install VictoriaMetrics stand-alone as a Pod into CNCF k8s cluster |
+| 08 | Install Grafana stand-alone as a Pod into CNCF k8s cluster |
+| 09 | Install Prometheus stand-alone as a Pod into CNCF k8s cluster |
+| 10 | Install a custom scraping endpoint (Java Springboot or Standalone Java) |
+| 11 | Using a HELM chart - install this as a set on CNCF K8S cluster |
+| 12 |  Use case definition and demo with CNCF K8S cluster | |
+
 
 
 ## A quick run with Docker Desktop 
