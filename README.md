@@ -33,3 +33,27 @@ Digest: sha256:02e04c263ab4ebe5311d9675ac15e588878a0211aceb052d911b4fe5f4a4cb6b
 Status: Downloaded newer image for victoriametrics/victoria-metrics:latest
 docker.io/victoriametrics/victoria-metrics:latest
 ```
+
+```
+Swarajits-MacBook-Air:~ swarajitroy$ docker volume ls
+DRIVER              VOLUME NAME
+local               0cd8d968b41c3ff2c841c44affafd0ea4526a013f164042f210ac30169f73c74
+local               1174af00f1c9f001080080eb6ad4c05c397b8c4fbb849c7b0b7f4a12c36212ff
+local               qm1data
+local               qmdata
+local               victoriametrics_volume
+Swarajits-MacBook-Air:~ swarajitroy$ docker volume ls | grep victoria
+local               victoriametrics_volume
+Swarajits-MacBook-Air:~ swarajitroy$ docker volume inspect victoriametrics_volume
+[
+    {
+        "CreatedAt": "2020-11-03T16:59:25Z",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/victoriametrics_volume/_data",
+        "Name": "victoriametrics_volume",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+```
