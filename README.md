@@ -28,18 +28,24 @@ I approached the work in following setup
 | 19 | Solution Architecture Quality - High Availability | |
 | 20 | Solution Architecture Quality - Security | |
 | 21 | Solution Architecture Quality - Performance Benchmark | |
+| 22 | Solution Architecture Quality - Observability | |
 
 
 
 
-## A quick run with Docker Desktop 
+## 01. Install VictoriaMetrics stand-alone on Docker Desktop
 ---
 
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| Task ID | Task Name | Remarks
+| ----------- | ----------- | ------|
+| A | Pull latest Victoriametrics image from Docker Hub | |
+| B | Create a Docker volume for Victoriametrics data storage |
+| C | Run Victoriametrics as a docker container with docker volume attached |
+| D | Test Victoriametric own metric endpoint URL |
 
+
+### 01.A Pull latest Victoriametrics image from Docker Hub
+---
 
 We have a free single-node VictoriaMetrics - fast time series database, long-term remote storage for Prometheus- in docker. 
 
@@ -55,7 +61,11 @@ Status: Downloaded newer image for victoriametrics/victoria-metrics:latest
 docker.io/victoriametrics/victoria-metrics:latest
 ```
 
+### 01.B Create a Docker volume for Victoriametrics data storage
+---
+
 ```
+Swarajits-MacBook-Air:~ swarajitroy$ docker volume create victoriametrics_volume
 Swarajits-MacBook-Air:~ swarajitroy$ docker volume ls
 DRIVER              VOLUME NAME
 local               0cd8d968b41c3ff2c841c44affafd0ea4526a013f164042f210ac30169f73c74
@@ -79,6 +89,9 @@ Swarajits-MacBook-Air:~ swarajitroy$ docker volume inspect victoriametrics_volum
 ]
 ```
 
+### 01.C Run Victoriametrics as a docker container with docker volume attached
+---
+
 ```
 Swarajits-MacBook-Air:lib swarajitroy$ docker run -d  --rm -v victoriametrics_volume:/victoria-metrics-data -p 8428:8428 victoriametrics/victoria-metrics
 30eae1b457e7892ea14aa6f2cdce846e8b59ab3cec1bcf2aa22ad6d7496a6544
@@ -94,6 +107,9 @@ docker logs 30eae1b457e7
 2020-11-03T17:09:37.323Z	info	VictoriaMetrics/lib/httpserver/httpserver.go:83	pprof handlers are exposed at http://:8428/debug/pprof/
 
 ```
+
+### 01.D Test Victoriametric own metric endpoint URL
+---
 
 ```
 Swarajits-MacBook-Air:lib swarajitroy$ curl -v http://localhost:8428/metrics
@@ -124,6 +140,7 @@ vm_cache_collisions_total{type="storage/tsid"} 0
 vm_cache_entries{type="indexdb/dataBlocks"} 0
 vm_cache_entries{type="indexdb/indexBlocks"} 0
 vm_cache_entries{type="indexdb/tagFilters"} 0
+
 ```
 
 
