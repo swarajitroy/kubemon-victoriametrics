@@ -62,4 +62,47 @@ Swarajits-MacBook-Air:~ swarajitroy$ docker volume inspect victoriametrics_volum
 Swarajits-MacBook-Air:lib swarajitroy$ docker run -d  --rm -v victoriametrics_volume:/victoria-metrics-data -p 8428:8428 victoriametrics/victoria-metrics
 30eae1b457e7892ea14aa6f2cdce846e8b59ab3cec1bcf2aa22ad6d7496a6544
 
+Swarajits-MacBook-Air:lib swarajitroy$ docker ps | grep -i victoriametrics
+30eae1b457e7        victoriametrics/victoria-metrics             "/victoria-metrics-p…"   About a minute ago   Up About a minute   0.0.0.0:8428->8428/tcp   frosty_shockley
+
+docker logs 30eae1b457e7
+2020-11-03T17:09:37.236Z	info	VictoriaMetrics/lib/logger/flag.go:12	build version: victoria-metrics-20201102-004452-tags-v1.45.0-0-gd396c265a
+2020-11-03T17:09:37.254Z	info	VictoriaMetrics/app/victoria-metrics/main.go:37	starting VictoriaMetrics at ":8428"...
+2020-11-03T17:09:37.320Z	info	VictoriaMetrics/app/victoria-metrics/main.go:46	started VictoriaMetrics in 0.066 seconds
+2020-11-03T17:09:37.322Z	info	VictoriaMetrics/lib/httpserver/httpserver.go:82	starting http server at http://:8428/
+2020-11-03T17:09:37.323Z	info	VictoriaMetrics/lib/httpserver/httpserver.go:83	pprof handlers are exposed at http://:8428/debug/pprof/
+
 ```
+
+```
+Swarajits-MacBook-Air:lib swarajitroy$ curl -v http://localhost:8428/metrics
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8428 (#0)
+> GET /metrics HTTP/1.1
+> Host: localhost:8428
+> User-Agent: curl/7.63.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/plain
+< Date: Tue, 03 Nov 2020 17:16:05 GMT
+< Transfer-Encoding: chunked
+<
+vm_active_force_merges 0
+vm_active_merges{type="indexdb"} 0
+vm_active_merges{type="storage/big"} 0
+vm_active_merges{type="storage/small"} 0
+vm_assisted_merges_total{type="indexdb"} 0
+vm_assisted_merges_total{type="storage/small"} 0
+vm_blocks{type="indexdb"} 0
+vm_blocks{type="storage/big"} 0
+vm_blocks{type="storage/small"} 0
+vm_cache_collisions_total{type="storage/metricName"} 0
+vm_cache_collisions_total{type="storage/tsid"} 0
+vm_cache_entries{type="indexdb/dataBlocks"} 0
+vm_cache_entries{type="indexdb/indexBlocks"} 0
+vm_cache_entries{type="indexdb/tagFilters"} 0
+```
+
+
