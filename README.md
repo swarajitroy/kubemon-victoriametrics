@@ -57,3 +57,9 @@ Swarajits-MacBook-Air:~ swarajitroy$ docker volume inspect victoriametrics_volum
     }
 ]
 ```
+
+```
+Swarajits-MacBook-Air:lib swarajitroy$ docker run -d  --rm -v victoriametrics_volume:/victoria-metrics-data -p 8428:8428 victoriametrics/victoria-metrics
+30eae1b457e7892ea14aa6f2cdce846e8b59ab3cec1bcf2aa22ad6d7496a6544
+
+```
