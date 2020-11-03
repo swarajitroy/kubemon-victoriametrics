@@ -24,9 +24,10 @@ I approached the work in following setup
 | 15 | Install Prometheus stand-alone as a Pod into Openshift 4.5 cluster |
 | 16 | Install custom scraping endpoint (Java Springboot or Standalone Java) as a Pod into Openshift 4.5 cluster |
 | 17 | Use case definition and demo with Openshift 4.5 cluster | 
-| 18 | Solution Architecture Quality - High Availability | |
-| 19 | Solution Architecture Quality - Security | |
-| 20 | Solution Architecture Quality - Performance Benchmark | |
+| 18 | Run VictoriaMetrics as a Kubernetes Operator |
+| 19 | Solution Architecture Quality - High Availability | |
+| 20 | Solution Architecture Quality - Security | |
+| 21 | Solution Architecture Quality - Performance Benchmark | |
 
 
 
