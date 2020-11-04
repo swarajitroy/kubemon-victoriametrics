@@ -154,3 +154,55 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 | D | Test Victoriametric own metric endpoint URL |
 
 ### 07.A Create a PV (Persistent Volume) intended for Victoriametrics Storage
+
+```
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >cat vicmet_pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-vicmet
+spec:
+  capacity:
+    storage: 100Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /mnt/nfs_share
+    server: 172.31.17.227
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl apply -f vicmet_pv.yaml
+persistentvolume/nfs-pv-vicmet created
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl get pv
+NAME            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM             STORAGECLASS   REASON   AGE
+nfs-pv          100Mi      RWX            Recycle          Bound       default/nfs-pvc   nfs                     3d18h
+nfs-pv-vicmet   100Mi      RWX            Recycle          Available                     nfs                     95s
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl describe pv nfs-pv-vicmet
+Name:            nfs-pv-vicmet
+Labels:          <none>
+Annotations:     <none>
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    nfs
+Status:          Available
+Claim:
+Reclaim Policy:  Recycle
+Access Modes:    RWX
+VolumeMode:      Filesystem
+Capacity:        100Mi
+Node Affinity:   <none>
+Message:
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    172.31.17.227
+    Path:      /mnt/nfs_share
+    ReadOnly:  false
+Events:        <none>
+
+```
