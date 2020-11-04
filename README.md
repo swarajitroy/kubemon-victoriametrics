@@ -146,6 +146,8 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 | ----------- | ----------- | ------|
 | A | Pull latest Victoriametrics image from Docker Hub | |
 | B | Create a Docker volume for Prometheus data storage ||
+| C | Run Prometheus as a docker container with docker volume attached ||
+
 
 ## 02.A Install Prometheus stand-alone on Docker Desktop
 ---
@@ -207,6 +209,29 @@ Swarajits-MacBook-Air:lib swarajitroy$ docker volume inspect prom_volume_02
 
 
 ```
+
+## 02.C Run Prometheus as a docker container with docker volume attached
+---
+
+```
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker run  -d  --rm -v prom_volume_01:/etc/prometheus -p 9090:9090 prom/prometheus
+2636e39feaa92711cfa2e3fea33c044e936b08b0b70c468a0b6febbe59f7190e
+Swarajits-MacBook-Air:lib swarajitroy$ docker ps
+CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS              PORTS                    NAMES
+2636e39feaa9        prom/prometheus                              "/bin/prometheus --c…"   5 seconds ago       Up 4 seconds        0.0.0.0:9090->9090/tcp   eager_saha
+30eae1b457e7        victoriametrics/victoria-metrics             "/victoria-metrics-p…"   17 hours ago        Up 17 hours         0.0.0.0:8428->8428/tcp   frosty_shockley
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker logs 2636e39feaa9
+level=info ts=2020-11-04T10:12:23.383Z caller=main.go:315 msg="No time or size retention was set so using the default time retention" duration=15d
+level=info ts=2020-11-04T10:12:23.384Z caller=main.go:353 msg="Starting Prometheus" version="(version=2.22.0, branch=HEAD, revision=0a7fdd3b76960808c3a91d92267c3d815c1bc354)"
+level=info ts=2020-11-04T10:12:23.416Z caller=main.go:735 msg="TSDB started"
+level=info ts=2020-11-04T10:12:23.416Z caller=main.go:861 msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
+level=info ts=2020-11-04T10:12:23.417Z caller=main.go:892 msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml totalDuration=1.0696ms remote_storage=7µs web_handler=6.7µs query_engine=7.4µs scrape=442.8µs scrape_sd=83.3µs notify=32.4µs notify_sd=29.2µs rules=5.9µs
+level=info ts=2020-11-04T10:12:23.417Z caller=main.go:684 msg="Server is ready to receive web requests."
+
+```
+
 
 ## 07. Install VictoriaMetrics stand-alone as a Pod into CNCF k8s cluster
 ---
