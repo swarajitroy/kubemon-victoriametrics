@@ -143,4 +143,12 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 
 ```
 
+## 07. Install VictoriaMetrics stand-alone as a Pod into CNCF k8s cluster
+---
 
+| Task ID | Task Name | Remarks
+| ----------- | ----------- | ------|
+| A | Create a PV (Persistent Volume) intended for Victoriametrics Storage | |
+| B | Create a PVC (Persistent Vomume Claim) for the Victoriametrics Storage |
+| C | Create a k8s Pod manifest (YAML) for VictoriaMetrics attached with volume |
+| D | Test Victoriametric own metric endpoint URL |
