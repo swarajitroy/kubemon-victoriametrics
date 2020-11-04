@@ -152,3 +152,5 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 | B | Create a PVC (Persistent Vomume Claim) for the Victoriametrics Storage |
 | C | Create a k8s Pod manifest (YAML) for VictoriaMetrics attached with volume |
 | D | Test Victoriametric own metric endpoint URL |
+
+### 07.A Create a PV (Persistent Volume) intended for Victoriametrics Storage
