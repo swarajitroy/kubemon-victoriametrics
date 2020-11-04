@@ -143,6 +143,31 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 
 ```
 
+## 02. Install Prometheus stand-alone on Docker Desktop
+---
+
+| Task ID | Task Name | Remarks
+| ----------- | ----------- | ------|
+| A | Pull latest Victoriametrics image from Docker Hub | |
+
+## 02.A Install Prometheus stand-alone on Docker Desktop
+---
+
+```
+Swarajits-MacBook-Air:lib swarajitroy$ docker pull prom/prometheus
+Using default tag: latest
+latest: Pulling from prom/prometheus
+Digest: sha256:60190123eb28250f9e013df55b7d58e04e476011911219f5cedac3c73a8b74e6
+Status: Downloaded newer image for prom/prometheus:latest
+docker.io/prom/prometheus:latest
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+victoriametrics/victoria-metrics   latest              58ed7efae12a        2 days ago          24.1MB
+prom/prometheus                    latest              7adf5a25557b        2 weeks ago         168MB
+
+```
+
 ## 07. Install VictoriaMetrics stand-alone as a Pod into CNCF k8s cluster
 ---
 
