@@ -250,3 +250,27 @@ Events:        <none>
 
 
 ```
+
+
+```
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >cat vicmet_pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vicmet-pv-pod
+spec:
+  volumes:
+    - name: vicmet-pv-storage
+      persistentVolumeClaim:
+        claimName: nfs-pvc-vicmet
+  containers:
+    - name:  vicmet-server
+      image: victoriametrics/victoria-metrics
+      ports:
+        - containerPort: 8428
+          name: "vicmet-server"
+      volumeMounts:
+        - mountPath: "/victoria-metrics-data"
+          name: vicmet-pv-storage
+
+```
