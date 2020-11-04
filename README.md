@@ -39,7 +39,7 @@ I approached the work in following setup
 | Task ID | Task Name | Remarks
 | ----------- | ----------- | ------|
 | A | Pull latest Victoriametrics image from Docker Hub | |
-| B | Create a Docker volume for Victoriametrics data storage |
+| B | Create a Docker volume for Victoriametrics data storage ||
 | C | Run Victoriametrics as a docker container with docker volume attached |
 | D | Test Victoriametric own metric endpoint URL |
 
@@ -68,10 +68,6 @@ docker.io/victoriametrics/victoria-metrics:latest
 Swarajits-MacBook-Air:~ swarajitroy$ docker volume create victoriametrics_volume
 Swarajits-MacBook-Air:~ swarajitroy$ docker volume ls
 DRIVER              VOLUME NAME
-local               0cd8d968b41c3ff2c841c44affafd0ea4526a013f164042f210ac30169f73c74
-local               1174af00f1c9f001080080eb6ad4c05c397b8c4fbb849c7b0b7f4a12c36212ff
-local               qm1data
-local               qmdata
 local               victoriametrics_volume
 Swarajits-MacBook-Air:~ swarajitroy$ docker volume ls | grep victoria
 local               victoriametrics_volume
@@ -149,6 +145,7 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 | Task ID | Task Name | Remarks
 | ----------- | ----------- | ------|
 | A | Pull latest Victoriametrics image from Docker Hub | |
+| B | Create a Docker volume for Prometheus data storage ||
 
 ## 02.A Install Prometheus stand-alone on Docker Desktop
 ---
@@ -165,6 +162,49 @@ Swarajits-MacBook-Air:lib swarajitroy$ docker images
 REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
 victoriametrics/victoria-metrics   latest              58ed7efae12a        2 days ago          24.1MB
 prom/prometheus                    latest              7adf5a25557b        2 weeks ago         168MB
+
+```
+
+## 02.B Create a Docker volume for Prometheus data storage
+---
+
+```
+Swarajits-MacBook-Air:lib swarajitroy$ docker volume create prom_volume_01
+prom_volume_01
+Swarajits-MacBook-Air:lib swarajitroy$ docker volume create prom_volume_02
+prom_volume_02
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker volume ls
+DRIVER              VOLUME NAME
+local               prom_volume_01
+local               prom_volume_02
+
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker volume inspect prom_volume_01
+[
+    {
+        "CreatedAt": "2020-11-04T09:57:53Z",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/prom_volume_01/_data",
+        "Name": "prom_volume_01",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+Swarajits-MacBook-Air:lib swarajitroy$ docker volume inspect prom_volume_02
+[
+    {
+        "CreatedAt": "2020-11-04T09:57:56Z",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/prom_volume_02/_data",
+        "Name": "prom_volume_02",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+
 
 ```
 
