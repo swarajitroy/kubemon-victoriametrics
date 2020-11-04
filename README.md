@@ -272,5 +272,41 @@ spec:
       volumeMounts:
         - mountPath: "/victoria-metrics-data"
           name: vicmet-pv-storage
+          
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl apply -f vicmet_pod.yaml
+pod/vicmet-pv-pod created
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl get pods -o wide
+NAME            READY   STATUS    RESTARTS   AGE   IP                NODE                           NOMINATED NODE   READINESS GATES
+vicmet-pv-pod   1/1     Running   0          3m    192.168.193.130   cd4a104e2c1c.mylabserver.com   <none>           <none>
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl exec --stdin --tty vicmet-pv-pod -- /bin/sh
+# ls /victoria-metrics-data
+   data            flock.lock          indexdb         snapshots       
+
+
+
+```
+
+```
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >curl -v http://192.168.193.130:8428/metrics
+*   Trying 192.168.193.130...
+* TCP_NODELAY set
+* Connected to 192.168.193.130 (192.168.193.130) port 8428 (#0)
+> GET /metrics HTTP/1.1
+> Host: 192.168.193.130:8428
+> User-Agent: curl/7.58.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/plain
+< Date: Wed, 04 Nov 2020 04:27:38 GMT
+< Transfer-Encoding: chunked
+<
+vm_active_force_merges 0
+vm_active_merges{type="indexdb"} 0
+vm_active_merges{type="storage/big"} 0
+
 
 ```
