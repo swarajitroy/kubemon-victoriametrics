@@ -250,7 +250,7 @@ Events:        <none>
 
 
 ```
-
+### 07.C Create a k8s Pod manifest (YAML) for VictoriaMetrics attached with volume
 
 ```
 {172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >cat vicmet_pod.yaml
@@ -280,13 +280,63 @@ pod/vicmet-pv-pod created
 NAME            READY   STATUS    RESTARTS   AGE   IP                NODE                           NOMINATED NODE   READINESS GATES
 vicmet-pv-pod   1/1     Running   0          3m    192.168.193.130   cd4a104e2c1c.mylabserver.com   <none>           <none>
 
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~ >kubectl describe pod vicmet-pv-pod
+Name:         vicmet-pv-pod
+Namespace:    default
+Priority:     0
+Node:         cd4a104e2c1c.mylabserver.com/172.31.21.240
+Start Time:   Wed, 04 Nov 2020 04:18:05 +0000
+Labels:       <none>
+Annotations:  cni.projectcalico.org/podIP: 192.168.193.130/32
+              cni.projectcalico.org/podIPs: 192.168.193.130/32
+Status:       Running
+IP:           192.168.193.130
+IPs:
+  IP:  192.168.193.130
+Containers:
+  vicmet-server:
+    Container ID:   docker://6ca135c8e7568730e960208c40d8750c91fbd484ddd668111dfde44474f29389
+    Image:          victoriametrics/victoria-metrics
+    Image ID:       docker-pullable://victoriametrics/victoria-metrics@sha256:02e04c263ab4ebe5311d9675ac15e588878a0211aceb052d911b4fe5f4a4cb6b
+    Port:           8428/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 04 Nov 2020 04:18:10 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-pjcmk (ro)
+      /victoria-metrics-data from vicmet-pv-storage (rw)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  vicmet-pv-storage:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  nfs-pvc-vicmet
+    ReadOnly:   false
+  default-token-pjcmk:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-pjcmk
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:          <none>
+
 {172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl exec --stdin --tty vicmet-pv-pod -- /bin/sh
 # ls /victoria-metrics-data
    data            flock.lock          indexdb         snapshots       
 
 
-
 ```
+
+### 07.D Test Victoriametric own metric endpoint URL
 
 ```
 
