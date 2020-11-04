@@ -206,3 +206,47 @@ Source:
 Events:        <none>
 
 ```
+
+### 07.B Create a PVC (Persistent Vomume Claim) for the Victoriametrics Storage
+
+```
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >cat vicmet_pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc-vicmet
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+      
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl apply -f vicmet_pvc.yaml
+persistentvolumeclaim/nfs-pvc-vicmet created
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl get pvc
+NAME             STATUS   VOLUME          CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+nfs-pvc          Bound    nfs-pv          100Mi      RWX            nfs            3d18h
+nfs-pvc-vicmet   Bound    nfs-pv-vicmet   100Mi      RWX            nfs            25s
+
+{172.31.17.227}[Ansible Node 1][NFS Sever][K8S Master] ~/swararoy_k8s/victoriametrics >kubectl describe pvc nfs-pvc-vicmet
+Name:          nfs-pvc-vicmet
+Namespace:     default
+StorageClass:  nfs
+Status:        Bound
+Volume:        nfs-pv-vicmet
+Labels:        <none>
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      100Mi
+Access Modes:  RWX
+VolumeMode:    Filesystem
+Mounted By:    <none>
+Events:        <none>
+
+
+```
