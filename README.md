@@ -147,6 +147,7 @@ vm_cache_entries{type="indexdb/tagFilters"} 0
 | A | Pull latest Victoriametrics image from Docker Hub | |
 | B | Create a Docker volume for Prometheus data storage ||
 | C | Run Prometheus as a docker container with docker volume attached ||
+| D | Test Prometheus Status/Graph page ||
 
 
 ## 02.A Install Prometheus stand-alone on Docker Desktop
@@ -217,6 +218,7 @@ Swarajits-MacBook-Air:lib swarajitroy$ docker volume inspect prom_volume_02
 
 Swarajits-MacBook-Air:lib swarajitroy$ docker run  -d  --rm -v prom_volume_01:/etc/prometheus -p 9090:9090 prom/prometheus
 2636e39feaa92711cfa2e3fea33c044e936b08b0b70c468a0b6febbe59f7190e
+
 Swarajits-MacBook-Air:lib swarajitroy$ docker ps
 CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS              PORTS                    NAMES
 2636e39feaa9        prom/prometheus                              "/bin/prometheus --c…"   5 seconds ago       Up 4 seconds        0.0.0.0:9090->9090/tcp   eager_saha
@@ -229,6 +231,25 @@ level=info ts=2020-11-04T10:12:23.416Z caller=main.go:735 msg="TSDB started"
 level=info ts=2020-11-04T10:12:23.416Z caller=main.go:861 msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
 level=info ts=2020-11-04T10:12:23.417Z caller=main.go:892 msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml totalDuration=1.0696ms remote_storage=7µs web_handler=6.7µs query_engine=7.4µs scrape=442.8µs scrape_sd=83.3µs notify=32.4µs notify_sd=29.2µs rules=5.9µs
 level=info ts=2020-11-04T10:12:23.417Z caller=main.go:684 msg="Server is ready to receive web requests."
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker run  -d  --rm -v prom_volume_02:/etc/prometheus -p 9091:9091 prom/prometheus
+56e330f8876ebb187072db0b90ff0188d374866a4d5611980bec15b9fdef7c47
+
+Swarajits-MacBook-Air:lib swarajitroy$ docker ps
+CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS              PORTS                              NAMES
+56e330f8876e        prom/prometheus                              "/bin/prometheus --c…"   40 seconds ago      Up 39 seconds       9090/tcp, 0.0.0.0:9091->9091/tcp   sleepy_lamarr
+2636e39feaa9        prom/prometheus                              "/bin/prometheus --c…"   About an hour ago   Up About an hour    0.0.0.0:9090->9090/tcp             eager_saha
+30eae1b457e7        victoriametrics/victoria-metrics             "/victoria-metrics-p…"   18 hours ago        Up 18 hours         0.0.0.0:8428->8428/tcp             frosty_shockley
+
+
+```
+
+## 02.D Test Prometheus Status/Graph page 
+---
+
+```
+http://localhost:9090/status
+http://localhost:9090/graph
 
 ```
 
