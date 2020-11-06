@@ -8,10 +8,10 @@ I approached the work in following setup
 | Task ID | Task Name | Remarks
 | ----------- | ----------- | ------|
 | 01 | Install VictoriaMetrics stand-alone on Docker Desktop |
-| 02 | Install Grafana stand-alone on Docker Desktop |
-| 03 | Install Prometheus stand-alone on Docker Desktop | 
+| 02 | Install Prometheus stand-alone on Docker Desktop |
+| 03 | Install Grafana stand-alone on Docker Desktop | 
 | 04 | Install a custom scraping endpoint (Java Springboot or Standalone Java)|
-| 05 | Using Docker Compose - install this as a set on Docker Desktop  |
+| 05 | Using Docker Compose - set up the environment on Docker Desktop  |
 | 06 | Use case definition and demo with Docker Desktop |
 | 07 | Install VictoriaMetrics stand-alone as a Pod into CNCF k8s cluster |
 | 08 | Install Grafana stand-alone as a Pod into CNCF k8s cluster |
