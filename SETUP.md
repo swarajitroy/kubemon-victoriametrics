@@ -2411,6 +2411,47 @@ remote_write:
 ### 13.4 Helm Chart 
 ---
 
+VictoriaMetrics has good support for HELM - https://github.com/VictoriaMetrics/helm-charts
+
+```
+Swarajits-MacBook-Air:helm-charts swarajitroy$ kubectl create namespace vemtrics-ns
+namespace/vemtrics-ns created
+
+```
+
+The chart github repository is https://github.com/swarajitroy/kubemon-victoriametrics/tree/main/helm-charts/victoria-metrics-standalone
+
+```
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm install vmsingle victoria-metrics-standalone  -n vmetrics-ns
+NAME: vmsingle
+LAST DEPLOYED: Sat Nov 21 16:06:17 2020
+NAMESPACE: vmetrics-ns
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm list -f vmsingle -n vemtrics-ns
+NAME    	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                            	APP VERSION
+vmsingle	vemtrics-ns	1       	2020-11-21 16:06:17.164853 +0530 IST	deployed	victoria-metrics-standalone-0.0.1	1.1.0
+
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm uninstall -name vmsingle -n vmetrics-ns
+release "vmsingle" uninstalled
+
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm upgrade vmsingle victoria-metrics-standalone  -n vemtrics-ns
+Release "vmsingle" has been upgraded. Happy Helming!
+NAME: vmsingle
+LAST DEPLOYED: Sat Nov 21 17:34:16 2020
+NAMESPACE: vmetrics-ns
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm ls -n vemtrics-ns
+NAME    	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                            	APP VERSION
+vmsingle	vmetrics-ns	2       	2020-11-21 17:34:16.556536 +0530 IST	deployed	victoria-metrics-standalone-0.0.1	1.1.0
+
+```
+
 ### 13.5 Kubernetes Operator
 ---
 
