@@ -2422,6 +2422,8 @@ https://levelup.gitconnected.com/integrating-argo-cd-for-your-kubernetes-project
 | ID | Task | Remarks
 | ----------- | ----------- | ------ |
 | A | Install ArgoCD | |
+| B | Connect to Kubernetes |
+| C | Connect to Source Repository |
 
 #### 13.6.A Install ArgoCD
 ---
