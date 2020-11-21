@@ -2449,6 +2449,30 @@ Status:       Active
 No resource quota.
 
 No resource limits.
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+Swarajits-MacBook-Air:~ swarajitroy$ kubectl get pods -n argocd
+NAME                                             READY   STATUS    RESTARTS   AGE
+argocd-application-controller-6c484d79c6-82fsz   1/1     Running   1          18h
+argocd-dex-server-b87b54696-ldlfs                1/1     Running   1          18h
+argocd-redis-646bb7bf78-tk7gs                    1/1     Running   1          18h
+argocd-repo-server-694547b4db-g4t2l              1/1     Running   1          18h
+argocd-server-6987c9748c-c64zc                   1/1     Running   1          18h
+
+Swarajits-MacBook-Air:~ swarajitroy$ kubectl get svc -n argocd
+NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+argocd-dex-server       ClusterIP   10.101.182.197   <none>        5556/TCP,5557/TCP,5558/TCP   18h
+argocd-metrics          ClusterIP   10.109.127.94    <none>        8082/TCP                     18h
+argocd-redis            ClusterIP   10.106.181.193   <none>        6379/TCP                     18h
+argocd-repo-server      ClusterIP   10.108.52.81     <none>        8081/TCP,8084/TCP            18h
+argocd-server           ClusterIP   10.101.172.166   <none>        80/TCP,443/TCP               18h
+argocd-server-metrics   ClusterIP   10.110.46.217    <none>        8083/TCP                     18h
+
+Swarajits-MacBook-Air:~ swarajitroy$ kubectl port-forward argocd-server-6987c9748c-c64zc 9000:443 -n argocd
+Forwarding from 127.0.0.1:9000 -> 443
+Forwarding from [::1]:9000 -> 443
+
 ```
 
 
