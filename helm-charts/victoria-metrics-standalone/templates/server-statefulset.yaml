@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.server.StatefulSet.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  serviceName: {{ .Values.server.StatefulSet.serviceName }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victoria-metrics
+  template:
+    metadata:
+      labels:
+        app: victoria-metrics
+    spec:
+      containers:
+      - name: victoria-metrics
+        image: victoriametrics/victoria-metrics
+        args:
+            - "-httpAuth.username=vmetrics"
+            - "-httpAuth.password=hello123"
+        ports:
+        - containerPort: 8428
+          name: server-port
+        volumeMounts:
+        - name: victoriametric-local-pv
+          mountPath: /victoria-metrics-data
+      volumes:
+      - name: victoriametric-local-pv
+        persistentVolumeClaim:
+          claimName: {{ .Values.server.persistentVolumeClaim.name }}

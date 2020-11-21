@@ -6,11 +6,11 @@ spec:
   capacity:
     storage: {{ .Values.server.persistentVolume.size | quote }}
   accessModes:
-  - ReadWriteOnce
+  -  ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
-  storageClassName: local-storage
+  storageClassName: {{ .Values.server.persistentVolume.storageClass }}
   local:
-    path: /swarajitroy-data
+    path:  {{ .Values.server.persistentVolume.mountPath }}
   nodeAffinity:
     required:
       nodeSelectorTerms:
