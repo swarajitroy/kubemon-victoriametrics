@@ -2446,6 +2446,10 @@ STATUS: deployed
 REVISION: 2
 TEST SUITE: None
 
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm ls -n vemtrics-ns
+NAME    	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                            	APP VERSION
+vmsingle	vemtrics-ns	2       	2020-11-21 17:34:16.556536 +0530 IST	deployed	victoria-metrics-standalone-0.0.1	1.1.0
+
 ```
 
 ### 13.5 Kubernetes Operator
