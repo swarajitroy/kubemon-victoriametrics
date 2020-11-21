@@ -2430,6 +2430,13 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm list -f vmsingle -n vemtrics-ns
+NAME    	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                            	APP VERSION
+vmsingle	vemtrics-ns	1       	2020-11-21 16:06:17.164853 +0530 IST	deployed	victoria-metrics-standalone-0.0.1	1.1.0
+
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm uninstall -name vmsingle -n vemtrics-ns
+release "vmsingle" uninstalled
+
 ```
 
 ### 13.5 Kubernetes Operator
