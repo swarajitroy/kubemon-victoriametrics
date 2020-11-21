@@ -2469,9 +2469,9 @@ argocd-repo-server      ClusterIP   10.108.52.81     <none>        8081/TCP,8084
 argocd-server           ClusterIP   10.101.172.166   <none>        80/TCP,443/TCP               18h
 argocd-server-metrics   ClusterIP   10.110.46.217    <none>        8083/TCP                     18h
 
-Swarajits-MacBook-Air:~ swarajitroy$ kubectl port-forward argocd-server-6987c9748c-c64zc 9000:443 -n argocd
-Forwarding from 127.0.0.1:9000 -> 443
-Forwarding from [::1]:9000 -> 443
+Swarajits-MacBook-Air:~ swarajitroy$ kubectl port-forward svc/argocd-server -n argocd 8080:443
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
 
 ```
 
