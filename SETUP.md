@@ -2437,6 +2437,15 @@ vmsingle	vemtrics-ns	1       	2020-11-21 16:06:17.164853 +0530 IST	deployed	vict
 Swarajits-MacBook-Air:helm-charts swarajitroy$ helm uninstall -name vmsingle -n vemtrics-ns
 release "vmsingle" uninstalled
 
+Swarajits-MacBook-Air:helm-charts swarajitroy$ helm upgrade vmsingle victoria-metrics-standalone  -n vemtrics-ns
+Release "vmsingle" has been upgraded. Happy Helming!
+NAME: vmsingle
+LAST DEPLOYED: Sat Nov 21 17:34:16 2020
+NAMESPACE: vemtrics-ns
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+
 ```
 
 ### 13.5 Kubernetes Operator
