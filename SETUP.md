@@ -2372,6 +2372,7 @@ We will use them as secrets https://kubernetes.io/docs/tasks/inject-data-applica
 | ----------- | ----------- | ------ |
 | A | Base64 encode UserID and Password |  |
 | B | Create Kubernetes Secret |  |
+| C | Inject secret to victoriametrics container |  |
 
 #### 13.1. A Base64 encode UserID and Password
 ---
@@ -2387,20 +2388,61 @@ aGVsbG8xMjM=
 ---
 
 ```
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat victoriametric-auth-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vmetrics-auth-secret
+data:
+  username: dm1ldHJpY3M=
+  password: aGVsbG8xMjM=
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl apply -f victoriametric-auth-secret.yaml
+secret/vmetrics-auth-secret created
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl get secrets
+NAME                   TYPE                                  DATA   AGE
+
+vmetrics-auth-secret   Opaque                                2      9s
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl describe secret vmetrics-auth-secret
+Name:         vmetrics-auth-secret
+Namespace:    default
+Labels:       <none>
+Annotations:
+Type:         Opaque
+
+Data
+====
+password:  8 bytes
+username:  8 bytes
+
+
+```
+
+#### 13.1. C Inject secret to victoriametrics container
+---
+
+```
 spec:
       containers:
       - name: victoria-metrics
         image: victoriametrics/victoria-metrics
+        env:
+        - name: HTTPAUTH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: username
+        - name: HTTPAUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: password
         args:
-            - "-httpAuth.username=vmetrics"
-            - "-httpAuth.password=hello123"
-        ports:
-        - containerPort: 8428
-          name: server-port
-        volumeMounts:
-        - name: victoriametric-local-pv
-          mountPath: /victoria-metrics-data
-          
+            - "-httpAuth.username=$(HTTPAUTH_USERNAME)"
+            - "-httpAuth.password=$(HTTPAUTH_PASSWORD)"
 ```
 
 The moment VictoriaMetrics is enabled for HTTP basic authentication, the prometheus will need to be updated - otherwise following error will be coming,
