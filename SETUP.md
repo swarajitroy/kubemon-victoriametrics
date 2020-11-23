@@ -2655,9 +2655,69 @@ Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl exec -it victoria-met
 vmetrics-cert.pem         vmetrics-private-key.pem
 
 ```
-#### 13.2.H Attach the secret as volume to Container   
+#### 13.2.H Start VictoriaMetrics server in TLS mode  
 ---
 
+```
+
+template:
+    metadata:
+      labels:
+        app: victoria-metrics
+    spec:
+      containers:
+      - name: victoria-metrics
+        image: victoriametrics/victoria-metrics
+        env:
+        - name: HTTPAUTH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: username
+        - name: HTTPAUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: password
+        args:
+            - "-httpAuth.username=$(HTTPAUTH_USERNAME)"
+            - "-httpAuth.password=$(HTTPAUTH_PASSWORD)"
+            - "--tls=true"
+            - "--tlsCertFile=/etc/victoriametric-secrets/vmetrics-cert.pem"
+            - "--tlsKeyFile=/etc/victoriametric-secrets/vmetrics-private-key.pem"
+        ports:
+        - containerPort: 8428
+          name: server-port
+        volumeMounts:
+        - name: victoriametric-local-pv
+          mountPath: /victoria-metrics-data
+        - name: victoriametric-secrets
+          mountPath: /etc/victoriametric-secrets/
+      volumes:
+      - name: victoriametric-local-pv
+        persistentVolumeClaim:
+          claimName: swararoy-pv-volume-claim
+      - name: victoriametric-secrets
+        secret:
+          secretName: vmetrics-tlsfiles-secret
+
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl run --restart=Never --rm -it --image infoblox/dnstools swararoy-dnstools
+If you don't see a command prompt, try pressing enter.
+
+dnstools# curl http://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+Client sent an HTTP request to an HTTPS server.
+
+dnstools# curl https://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+curl: (60) SSL certificate problem: self signed certificate
+More details here: https://curl.haxx.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+
+
+```
 
 ### 13.3 VictoriaMetric Security - vmauth
 ---
