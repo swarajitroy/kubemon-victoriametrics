@@ -2405,8 +2405,22 @@ remote_write:
 ### 13.2 VictoriaMetric Security - Encryption
 ---
 
-According to VictoriaMetrics website - Prefer ECDSA certs instead of RSA certs, since RSA certs are slow. There is good documentation to create ECDSA private key and CA certification out here - https://www.scottbrady91.com/OpenSSL/Creating-Elliptical-Curve-Keys-using-OpenSSL
+According to VictoriaMetrics website - Prefer ECDSA certs instead of RSA certs, since RSA certs are slow. There is good documentation to create ECDSA private key and CA certification out here - https://www.scottbrady91.com/OpenSSL/Creating-Elliptical-Curve-Keys-using-OpenSSL . If at all same is required for RSA - we have https://www.scottbrady91.com/OpenSSL/Creating-RSA-Keys-using-OpenSSL
 
+| ID | Task | Remarks
+| ----------- | ----------- | ------ |
+| A | Check OpenSSL availability |  |
+
+#### 13.2.A Check OpenSSL availability
+---
+
+```
+Swarajits-MacBook-Air:cp-all-in-one-community swarajitroy$ which openssl
+/usr/bin/openssl
+Swarajits-MacBook-Air:cp-all-in-one-community swarajitroy$ openssl version
+LibreSSL 2.2.7
+
+```
 
 ### 13.3 VictoriaMetric Security - vmauth
 ---
