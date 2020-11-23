@@ -2563,6 +2563,11 @@ XBWHitqs140CIBHlpdfHP4b2CHXqG8S3A1DkQYh6mmYarNqOmRbkoPdX
 
 ```
 
+#### 13.2.F Create Secret which will hold Private Key and Certificate
+---
+
+https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod
+
 ```
 -tls
     	Whether to enable TLS (aka HTTPS) for incoming requests. -tlsCertFile and -tlsKeyFile must be set if -tls is set
