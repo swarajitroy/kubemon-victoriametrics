@@ -2466,6 +2466,39 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5AwJo3VOtUbI1urgubYJNx8xqI7I
 
 ```
 
+#### 13.2.E Create the self signed certificate
+---
+
+```
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl req -new -x509 -key vmetrics-private-key.pem -out vmetrics-cert.pem -days 360
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) []:IN
+State or Province Name (full name) []:WB
+Locality Name (eg, city) []:KOLKATA
+Organization Name (eg, company) []:.
+Organizational Unit Name (eg, section) []:.
+Common Name (eg, fully qualified host name) []:.
+Email Address []:.
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-cert.pem
+-----BEGIN CERTIFICATE-----
+MIIBRjCB7gIJALAF6umWErQ9MAoGCCqGSM49BAMCMCwxCzAJBgNVBAYTAklOMQsw
+CQYDVQQIDAJXQjEQMA4GA1UEBwwHS09MS0FUQTAeFw0yMDExMjMwNDAwNDhaFw0y
+MTExMTgwNDAwNDhaMCwxCzAJBgNVBAYTAklOMQswCQYDVQQIDAJXQjEQMA4GA1UE
+BwwHS09MS0FUQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOQMCaN1TrVGyNbq
+4Lm2CTcfMaiOyOg1C1ECB7WkNQZbBdMJGWSNng12v0jxrlAglsquXTuPY/nqHUMh
++0STyt0wCgYIKoZIzj0EAwIDRwAwRAIgeLGbwbh/BnP9oQLNpNX99A6aXcWa3cEK
+XBWHitqs140CIBHlpdfHP4b2CHXqG8S3A1DkQYh6mmYarNqOmRbkoPdX
+-----END CERTIFICATE-----
+
+```
+
 ### 13.3 VictoriaMetric Security - vmauth
 ---
 
