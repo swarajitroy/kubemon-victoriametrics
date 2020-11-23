@@ -2366,7 +2366,25 @@ VictoriaMetrics supports HTTP Basic Authentication via following flags
 -httpAuth.username string
         Username for HTTP Basic Auth. The authentication is disabled if empty. See also -httpAuth.password
 
-We will use
+We will use them as secrets https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/
+
+| ID | Task | Remarks
+| ----------- | ----------- | ------ |
+| A | Base64 encode UserID and Password |  |
+| B | Create Kubernetes Secret |  |
+
+#### 13.1. A Base64 encode UserID and Password
+---
+
+```
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ echo -n 'vmetrics' | base64
+dm1ldHJpY3M=
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ echo -n 'hello123' | base64
+aGVsbG8xMjM=
+
+```
+#### 13.1. B Create Kubernetes Secret
+---
 
 ```
 spec:
