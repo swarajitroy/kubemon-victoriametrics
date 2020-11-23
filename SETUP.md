@@ -2561,6 +2561,37 @@ BwwHS09MS0FUQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOQMCaN1TrVGyNbq
 XBWHitqs140CIBHlpdfHP4b2CHXqG8S3A1DkQYh6mmYarNqOmRbkoPdX
 -----END CERTIFICATE-----
 
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl x509 -in vmetrics-cert.pem -text -noout
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number: 12683802214524957757 (0xb005eae99612b43d)
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=IN, ST=WB, L=KOLKATA
+        Validity
+            Not Before: Nov 23 04:00:48 2020 GMT
+            Not After : Nov 18 04:00:48 2021 GMT
+        Subject: C=IN, ST=WB, L=KOLKATA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:e4:0c:09:a3:75:4e:b5:46:c8:d6:ea:e0:b9:b6:
+                    09:37:1f:31:a8:8e:c8:e8:35:0b:51:02:07:b5:a4:
+                    35:06:5b:05:d3:09:19:64:8d:9e:0d:76:bf:48:f1:
+                    ae:50:20:96:ca:ae:5d:3b:8f:63:f9:ea:1d:43:21:
+                    fb:44:93:ca:dd
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:78:b1:9b:c1:b8:7f:06:73:fd:a1:02:cd:a4:d5:
+         fd:f4:0e:9a:5d:c5:9a:dd:c1:0a:5c:15:87:8a:da:ac:d7:8d:
+         02:20:11:e5:a5:d7:c7:3f:86:f6:08:75:ea:1b:c4:b7:03:50:
+         e4:41:88:7a:9a:66:1a:ac:da:8e:99:16:e4:a0:f7:57
+
+
+http://apetec.com/support/generatesan-csr.htm
+
 ```
 
 #### 13.2.F Create Secret which will hold Private Key and Certificate
