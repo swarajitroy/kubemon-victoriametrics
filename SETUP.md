@@ -2575,6 +2575,9 @@ https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files
     	Path to file with TLS certificate. Used only if -tls is set. Prefer ECDSA certs instead of RSA certs, since RSA certs are slow
   -tlsKeyFile string
     	Path to file with TLS key. Used only if -tls is set
+     
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-private-key.pem | base64
+LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUhmSFpFc1Ezd1daYy9jMmprT1lzL096ZzhlT2Y3ZzNXdi9KZi9vaWZPRkhvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFNUF3Sm8zVk90VWJJMXVyZ3ViWUpOeDh4cUk3STZEVUxVUUlIdGFRMUJsc0Ywd2taWkkyZQpEWGEvU1BHdVVDQ1d5cTVkTzQ5aitlb2RReUg3UkpQSzNRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
 
 ```
 
