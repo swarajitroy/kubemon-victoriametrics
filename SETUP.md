@@ -2716,6 +2716,21 @@ curl failed to verify the legitimacy of the server and therefore could not
 establish a secure connection to it. To learn more about this situation and
 how to fix it, please visit the web page mentioned above.
 
+dnstools# curl --insecure https://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+vm_active_force_merges 0
+vm_active_merges{type="indexdb"} 0
+vm_active_merges{type="storage/big"} 0
+vm_active_merges{type="storage/small"} 0
+vm_assisted_merges_total{type="indexdb"} 0
+vm_assisted_merges_total{type="storage/small"} 0
+
+```
+#### 13.2.I Update Prometheus remote write section to use TLS  
+---
+
+```
+ts=2020-11-23T14:52:01.625Z caller=dedupe.go:112 component=remote level=error remote_name=d9832e url=http://victoria-metrics-headless-service.default.svc.cluster.local:8428/api/v1/write msg="non-recoverable error" count=3 err="server returned HTTP status 400 Bad Request: Client sent an HTTP request to an HTTPS server."
+
 
 ```
 
