@@ -2474,6 +2474,10 @@ According to VictoriaMetrics website - Prefer ECDSA certs instead of RSA certs, 
 | C | Create the Private Key |  |
 | D | Create the Public Key |  |
 | E | Create the self signed certificate from the Public Key |  |
+| F | Create Secret which will hold Private Key and Certificate |  |
+| G | Attach the secret as volume to Container   |
+| H | Start VictoriaMetrics server in TLS mode |
+| I | Update Prometheus remote write section to use TLS | 
 
 #### 13.2.A Check OpenSSL availability
 ---
@@ -2556,6 +2560,16 @@ BwwHS09MS0FUQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOQMCaN1TrVGyNbq
 +0STyt0wCgYIKoZIzj0EAwIDRwAwRAIgeLGbwbh/BnP9oQLNpNX99A6aXcWa3cEK
 XBWHitqs140CIBHlpdfHP4b2CHXqG8S3A1DkQYh6mmYarNqOmRbkoPdX
 -----END CERTIFICATE-----
+
+```
+
+```
+-tls
+    	Whether to enable TLS (aka HTTPS) for incoming requests. -tlsCertFile and -tlsKeyFile must be set if -tls is set
+  -tlsCertFile string
+    	Path to file with TLS certificate. Used only if -tls is set. Prefer ECDSA certs instead of RSA certs, since RSA certs are slow
+  -tlsKeyFile string
+    	Path to file with TLS key. Used only if -tls is set
 
 ```
 
