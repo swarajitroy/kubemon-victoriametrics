@@ -2410,6 +2410,10 @@ According to VictoriaMetrics website - Prefer ECDSA certs instead of RSA certs, 
 | ID | Task | Remarks
 | ----------- | ----------- | ------ |
 | A | Check OpenSSL availability |  |
+| B | Select Algorithm |  |
+| C | Create the Private Key |  |
+| D | Create the Public Key |  |
+| E | Create the self signed certificate from the Public Key |  |
 
 #### 13.2.A Check OpenSSL availability
 ---
@@ -2419,6 +2423,46 @@ Swarajits-MacBook-Air:cp-all-in-one-community swarajitroy$ which openssl
 /usr/bin/openssl
 Swarajits-MacBook-Air:cp-all-in-one-community swarajitroy$ openssl version
 LibreSSL 2.2.7
+
+```
+#### 13.2.B Select Algorithm
+---
+```
+Swarajits-MacBook-Air:cp-all-in-one-community swarajitroy$ openssl ecparam -list_curves | grep prime256v1
+  prime256v1: X9.62/SECG curve over a 256 bit prime field
+
+
+```
+#### 13.2.C Create the Private Key
+---
+```
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl ecparam -name prime256v1 -genkey -noout -out vmetrics-private-key.pem
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ ls -l vmetrics-private-key.pem
+-rw-r--r--  1 swarajitroy  staff  227 Nov 23 09:16 vmetrics-private-key.pem
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-private-key.pem
+-----BEGIN EC PRIVATE KEY-----
+gghhdhdK3Q==
+-----END EC PRIVATE KEY-----
+
+```
+#### 13.2.D Create the Public Key
+---
+
+```
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl ec -in vmetrics-private-key.pem -pubout -out vmetrics-public-key.pem
+read EC key
+writing EC key
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ ls -l vmetrics-public-key.pem
+-rw-r--r--  1 swarajitroy  staff  178 Nov 23 09:19 vmetrics-public-key.pem
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-public-key.pem
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5AwJo3VOtUbI1urgubYJNx8xqI7I
+6DULUQIHtaQ1BlsF0wkZZI2eDXa/SPGuUCCWyq5dO49j+eodQyH7RJPK3Q==
+-----END PUBLIC KEY-----
 
 ```
 
