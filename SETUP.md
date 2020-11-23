@@ -2577,7 +2577,40 @@ https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files
     	Path to file with TLS key. Used only if -tls is set
      
 Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-private-key.pem | base64
-LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUhmSFpFc1Ezd1daYy9jMmprT1lzL096ZzhlT2Y3ZzNXdi9KZi9vaWZPRkhvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFNUF3Sm8zVk90VWJJMXVyZ3ViWUpOeDh4cUk3STZEVUxVUUlIdGFRMUJsc0Ywd2taWkkyZQpEWGEvU1BHdVVDQ1d5cTVkTzQ5aitlb2RReUg3UkpQSzNRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+<<pEWGEvU1BHdVVDQ1d5cTVkTzQ5aitlb2RReUg3UkpQSzNRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-cert.pem | base64
+<<SGxwZGZIUDRiMkNIWHFHOFMzQTFEa1FZaDZtbVlhck5xT21SYmtvUGRYCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat victoriametric-tlsfiles-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vmetrics-tlsfiles-secret
+data:
+  vmetrics-privkey.pem: SBLRVktLS0tLQo=
+  vmetrics-cert.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJLS0tLS0K
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl apply -f victoriametric-tlsfiles-secret.yaml
+secret/vmetrics-tlsfiles-secret created
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl get secrets
+NAME                       TYPE                                  DATA   AGE
+
+vmetrics-auth-secret       Opaque                                2      5h54m
+vmetrics-tlsfiles-secret   Opaque                                2      2m50s
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl describe secret vmetrics-tlsfiles-secret
+Name:         vmetrics-tlsfiles-secret
+Namespace:    default
+Labels:       <none>
+Annotations:
+Type:         Opaque
+
+Data
+====
+vmetrics-cert.pem:         501 bytes
+vmetrics-private-key.pem:  227 bytes
 
 ```
 
