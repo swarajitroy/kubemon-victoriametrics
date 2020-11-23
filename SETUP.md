@@ -2613,6 +2613,51 @@ vmetrics-cert.pem:         501 bytes
 vmetrics-private-key.pem:  227 bytes
 
 ```
+#### 13.2.G Attach the secret as volume to Container   
+---
+
+```
+
+The manifest file looks like this,
+
+spec:
+      containers:
+      - name: victoria-metrics
+        image: victoriametrics/victoria-metrics
+        env:
+        - name: HTTPAUTH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: username
+        - name: HTTPAUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: password
+        args:
+            - "-httpAuth.username=$(HTTPAUTH_USERNAME)"
+            - "-httpAuth.password=$(HTTPAUTH_PASSWORD)"
+        ports:
+        - containerPort: 8428
+          name: server-port
+        volumeMounts:
+        - name: victoriametric-local-pv
+          mountPath: /victoria-metrics-data
+        - name: victoriametric-secrets
+          mountPath: /etc/victoriametric-secrets/
+      volumes:
+      - name: victoriametric-local-pv
+        persistentVolumeClaim:
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl exec -it victoria-metrics-0 /bin/sh
+/ # ls /etc/victoriametric-secrets/
+vmetrics-cert.pem         vmetrics-private-key.pem
+
+```
+#### 13.2.H Attach the secret as volume to Container   
+---
+
 
 ### 13.3 VictoriaMetric Security - vmauth
 ---
