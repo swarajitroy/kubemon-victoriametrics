@@ -2767,7 +2767,7 @@ data:
 Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl apply -f prometheus_01-tlsfiles-secret.yaml
 secret/prom-tlsfiles-secret configured
 
-
+Update the prometheus configuration file via the configmap
 
 remote_write:
       - url: https://victoria-metrics-headless-service.default.svc.cluster.local:8428/api/v1/write
@@ -2778,6 +2778,25 @@ remote_write:
         tls_config:
          ca_file: /etc/prom01-secrets/vmetrics-cert.pem
 
+Attach the secret as a volume at mount path /etc/prom02-secrets
+
+ volumeMounts:
+        - name: prometheus-02-local-pv
+          mountPath: /swarajitroy-prom02-data
+        - name: prometheus-02-config-volume
+          mountPath: /etc/config
+        - name: prometheus-02-secrets
+          mountPath: /etc/prom02-secrets/
+      volumes:
+      - name: prometheus-02-local-pv
+        persistentVolumeClaim:
+          claimName: prom02-pv-volume-claim
+      - name: prometheus-02-config-volume
+        configMap:
+          name: prometheus-02-server-configmap
+      - name: prometheus-02-secrets
+        secret:
+          secretName: prom-tlsfiles-secret
 
 ```
 
