@@ -2534,44 +2534,42 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5AwJo3VOtUbI1urgubYJNx8xqI7I
 ---
 
 ```
-Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl req -new -x509 -key vmetrics-private-key.pem -out vmetrics-cert.pem -days 360
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) []:IN
-State or Province Name (full name) []:WB
-Locality Name (eg, city) []:KOLKATA
-Organization Name (eg, company) []:.
-Organizational Unit Name (eg, section) []:.
-Common Name (eg, fully qualified host name) []:.
-Email Address []:.
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat certificate.cnf
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
 
-Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-cert.pem
------BEGIN CERTIFICATE-----
-MIIBRjCB7gIJALAF6umWErQ9MAoGCCqGSM49BAMCMCwxCzAJBgNVBAYTAklOMQsw
-CQYDVQQIDAJXQjEQMA4GA1UEBwwHS09MS0FUQTAeFw0yMDExMjMwNDAwNDhaFw0y
-MTExMTgwNDAwNDhaMCwxCzAJBgNVBAYTAklOMQswCQYDVQQIDAJXQjEQMA4GA1UE
-BwwHS09MS0FUQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOQMCaN1TrVGyNbq
-4Lm2CTcfMaiOyOg1C1ECB7WkNQZbBdMJGWSNng12v0jxrlAglsquXTuPY/nqHUMh
-+0STyt0wCgYIKoZIzj0EAwIDRwAwRAIgeLGbwbh/BnP9oQLNpNX99A6aXcWa3cEK
-XBWHitqs140CIBHlpdfHP4b2CHXqG8S3A1DkQYh6mmYarNqOmRbkoPdX
------END CERTIFICATE-----
+[ dn ]
+C = IN
+ST = West Bengal
+L = Kolkata
+O = ULearnUHelp
+OU = Information Technologies
+emailAddress = email@email.com
+CN = victoria-metrics-headless-service.default.svc.cluster.local
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = victoria-metrics-headless-service.default.svc.cluster.local
+
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl req -nodes -new -x509  -days 1825 -config certificate.cnf -extensions 'req_ext' -key vmetrics-private-key.pem -out vmetrics-cert.pem
 
 Swarajits-MacBook-Air:victoriametrics swarajitroy$ openssl x509 -in vmetrics-cert.pem -text -noout
 Certificate:
     Data:
-        Version: 1 (0x0)
-        Serial Number: 12683802214524957757 (0xb005eae99612b43d)
+        Version: 3 (0x2)
+        Serial Number: 14266953178475315094 (0xc5fe66538626bf96)
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=IN, ST=WB, L=KOLKATA
+        Issuer: C=IN, ST=West Bengal, L=Kolkata, O=ULearnUHelp, OU=Information Technologies/emailAddress=email@email.com, CN=victoria-metrics-headless-service.default.svc.cluster.local
         Validity
-            Not Before: Nov 23 04:00:48 2020 GMT
-            Not After : Nov 18 04:00:48 2021 GMT
-        Subject: C=IN, ST=WB, L=KOLKATA
+            Not Before: Nov 24 07:00:11 2020 GMT
+            Not After : Nov 23 07:00:11 2025 GMT
+        Subject: C=IN, ST=West Bengal, L=Kolkata, O=ULearnUHelp, OU=Information Technologies/emailAddress=email@email.com, CN=victoria-metrics-headless-service.default.svc.cluster.local
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
@@ -2583,14 +2581,15 @@ Certificate:
                     fb:44:93:ca:dd
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Subject Alternative Name:
+                DNS:victoria-metrics-headless-service.default.svc.cluster.local
     Signature Algorithm: ecdsa-with-SHA256
-         30:44:02:20:78:b1:9b:c1:b8:7f:06:73:fd:a1:02:cd:a4:d5:
-         fd:f4:0e:9a:5d:c5:9a:dd:c1:0a:5c:15:87:8a:da:ac:d7:8d:
-         02:20:11:e5:a5:d7:c7:3f:86:f6:08:75:ea:1b:c4:b7:03:50:
-         e4:41:88:7a:9a:66:1a:ac:da:8e:99:16:e4:a0:f7:57
+         30:44:02:20:54:a1:c0:ab:7e:0f:89:30:1b:f1:4b:ab:60:42:
+         12:5b:ef:4b:b5:8c:b6:f1:dd:58:b6:c5:4d:89:7d:ba:28:51:
+         02:20:05:b0:47:89:83:a2:7e:8f:95:53:ce:f0:68:ea:84:cf:
+         38:b9:46:9f:6d:8a:c1:82:6b:a6:53:3b:cd:a7:03:fb
 
-
-http://apetec.com/support/generatesan-csr.htm
 
 ```
 
@@ -2612,6 +2611,8 @@ Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-private-key.pem 
 
 Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat vmetrics-cert.pem | base64
 <<SGxwZGZIUDRiMkNIWHFHOFMzQTFEa1FZaDZtbVlhck5xT21SYmtvUGRYCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+
+LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQXNxZ0F3SUJBZ0lKQU1EWmY5RERDYnJpTUFvR0NDcUdTTTQ5QkFNQ01JR1dNUXN3Q1FZRFZRUUcKRXdKSlRqRUxNQWtHQTFVRUNCTUNWMEl4RURBT0JnTlZCQWNUQjB0dmJHdGhkR0V4RkRBU0JnTlZCQW9UQzNWcwpaV0Z5Ym5Wb1pXeHdNUXd3Q2dZRFZRUUxFd052Y21jeFJEQkNCZ05WQkFNVE8zWnBZM1J2Y21saExXMWxkSEpwClkzTXRhR1ZoWkd4bGMzTXRjMlZ5ZG1salpTNWtaV1poZFd4MExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01CNFgKRFRJd01URXlOREEwTXpJeU4xb1hEVEl3TVRJeU5EQTBNekl5TjFvd2daWXhDekFKQmdOVkJBWVRBa2xPTVFzdwpDUVlEVlFRSUV3SlhRakVRTUE0R0ExVUVCeE1IUzI5c2EyRjBZVEVVTUJJR0ExVUVDaE1MZFd4bFlYSnVkV2hsCmJIQXhEREFLQmdOVkJBc1RBMjl5WnpGRU1FSUdBMVVFQXhNN2RtbGpkRzl5YVdFdGJXVjBjbWxqY3kxb1pXRmsKYkdWemN5MXpaWEoyYVdObExtUmxabUYxYkhRdWMzWmpMbU5zZFhOMFpYSXViRzlqWVd3d1dUQVRCZ2NxaGtqTwpQUUlCQmdncWhrak9QUU1CQndOQ0FBVGtEQW1qZFU2MVJzalc2dUM1dGdrM0h6R29qc2pvTlF0UkFnZTFwRFVHCld3WFRDUmxralo0TmRyOUk4YTVRSUpiS3JsMDdqMlA1NmgxRElmdEVrOHJkbzRIK01JSDdNQjBHQTFVZERnUVcKQkJSQWUveUtlWmhlYkgxSWlJVURJUHlHeEJYL2hEQ0J5d1lEVlIwakJJSERNSUhBZ0JSQWUveUtlWmhlYkgxSQppSVVESVB5R3hCWC9oS0dCbktTQm1UQ0JsakVMTUFrR0ExVUVCaE1DU1U0eEN6QUpCZ05WQkFnVEFsZENNUkF3CkRnWURWUVFIRXdkTGIyeHJZWFJoTVJRd0VnWURWUVFLRXd0MWJHVmhjbTUxYUdWc2NERU1NQW9HQTFVRUN4TUQKYjNKbk1VUXdRZ1lEVlFRREV6dDJhV04wYjNKcFlTMXRaWFJ5YVdOekxXaGxZV1JzWlhOekxYTmxjblpwWTJVdQpaR1ZtWVhWc2RDNXpkbU11WTJ4MWMzUmxjaTVzYjJOaGJJSUpBTURaZjlERENicmlNQXdHQTFVZEV3UUZNQU1CCkFmOHdDZ1lJS29aSXpqMEVBd0lEUndBd1JBSWdCUzJEOEV0K1lWbXFsamlYM2lvdDMxVi9QNjJRQVM5dk9YWUIKM1RqWTZtRUNJSGJubjV5NTJUZWxaTUJMUmQ2aVBmRFZyQjAzTVNJL05lcFFYbVRsMjJVaQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
 
 Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat victoriametric-tlsfiles-secret.yaml
 apiVersion: v1
