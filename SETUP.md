@@ -2768,6 +2768,17 @@ Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl apply -f prometheus_0
 secret/prom-tlsfiles-secret configured
 
 
+
+remote_write:
+      - url: https://victoria-metrics-headless-service.default.svc.cluster.local:8428/api/v1/write
+        basic_auth:
+         username: xxx
+         password: yyy
+
+        tls_config:
+         ca_file: /etc/prom01-secrets/vmetrics-cert.pem
+
+
 ```
 
 ### 13.3 VictoriaMetric Security - vmauth
