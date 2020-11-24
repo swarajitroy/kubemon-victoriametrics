@@ -2799,6 +2799,20 @@ Attach the secret as a volume at mount path /etc/prom02-secrets
           secretName: prom-tlsfiles-secret
 
 ```
+#### 13.2.J Update Grafana to use TLS Basic Authentication & Encryption 
+---
+
+In Auth section of data source definition, 
+
+- Basic Auth 
+- With credentials
+- With CA Cert
+
+and add the CA Certficate content in the section 
+
+- Basic Auth Details
+- TLS Auth Details
+
 
 ### 13.3 VictoriaMetric Security - vmauth
 ---
