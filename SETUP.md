@@ -2972,8 +2972,24 @@ containers:
 
 ```
 
-#### 13.7.B Configure Victoriametric to self scrape
+#### 13.7.B Install Grafana Dashboard for Standalone VictoriaMetrics
 ---
+
+https://grafana.com/grafana/dashboards/10229. This installs a dashboard with 5 groups and their respective panels. 
+
+* Configuration 
+  * VictoriaMetrics software version 
+  * Total Datapoints
+  * Index Size
+  * Uptime
+  * Flag 
+* Performance 
+* Storage
+* Troubleshooting
+* Resource Usage
+  * CPU
+  * Memory
+
 
 ### 13.8 Backup
 ---
