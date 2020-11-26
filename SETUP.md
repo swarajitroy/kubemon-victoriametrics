@@ -2992,7 +2992,16 @@ https://grafana.com/grafana/dashboards/10229. This installs a dashboard with 5 g
   * Request Error Rate
 * Storage
   * Datapoint Injection Rate
-  * 
+  * Pending Datapoints
+  * Datapoints 
+  * LSM Parts
+  * Disk space usage (Datapoints)
+  * Disk space usage (Index)
+  * Active Merges
+  * Merge Speed
+  * Rows Ignored
+  * Logging Rate
+  
 * Troubleshooting
   * Churn Rate
   * Slow query rate
