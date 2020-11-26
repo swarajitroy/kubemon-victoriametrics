@@ -3013,8 +3013,14 @@ https://grafana.com/grafana/dashboards/10229. This installs a dashboard with 5 g
   * GC Time
 
 
-### 13.8 Backup
+### 13.8 Alerting 
 ---
 
-### 13.9 Alerting
+| ID | Task | Remarks
+| ----------- | ----------- | ------ |
+| A | Installing Alert Manager  | |
+| B | Configure Grafana alerts to Alert Manager for VictoriaMetrics  |
+| C | Demo |
+
+### 13.9 Backup
 ---
