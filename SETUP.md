@@ -26,8 +26,8 @@ VictoriaMetric App
   * [13.5 Kubernetes Operator](#135-kubernetes-operator)
   * [13.6 ArgoCD GitOps](#136-argocd)
   * [13.7 Monitoring](#137-monitoring)
-  * [13.8 Backup](#138-backup)
-  * [13.9 Alerting](#139-alerting)
+  * [13.8 Alerting](#138-alerting)
+  * [13.9 Backup](#139-alerting)
 
 
 
