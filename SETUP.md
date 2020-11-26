@@ -3011,6 +3011,11 @@ https://grafana.com/grafana/dashboards/10229. This installs a dashboard with 5 g
   * Memory
   * Go Routine
   * GC Time
+  
+#### 13.7.C Important Telemetry
+---
+
+https://github.com/VictoriaMetrics/VictoriaMetrics#monitoring
 
 
 ### 13.8 Alerting 
