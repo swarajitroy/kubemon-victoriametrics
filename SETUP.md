@@ -2932,6 +2932,17 @@ Forwarding from [::1]:8080 -> 8080
 ### 13.7 Monitoring
 ---
 
+VictoriaMetrics exports internal metrics in Prometheus format at /metrics page. These metrics may be collected by vmagent or Prometheus by adding the corresponding scrape config to it. Alternatively they can be self-scraped by setting -selfScrapeInterval command-line flag to duration greater than 0. For example, -selfScrapeInterval=10s would enable self-scraping of /metrics page with 10 seconds interval.
+
+| ID | Task | Remarks
+| ----------- | ----------- | ------ |
+| A | Install ArgoCD | |
+| B | Connect to Kubernetes |
+| C | Connect to Source Repository |
+
+
+https://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+
 ### 13.8 Backup
 ---
 
