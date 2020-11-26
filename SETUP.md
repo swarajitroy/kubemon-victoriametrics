@@ -2984,11 +2984,24 @@ https://grafana.com/grafana/dashboards/10229. This installs a dashboard with 5 g
   * Uptime
   * Flag 
 * Performance 
+  * Request Rate
+  * Query Duration 
+  * Active Time series
+  * Cache size
+  * Concurrent Inserts
+  * Request Error Rate
 * Storage
+  * Datapoint Injection Rate
+  * 
 * Troubleshooting
+  * Churn Rate
+  * Slow query rate
+  * Slow Inserts
 * Resource Usage
   * CPU
   * Memory
+  * Go Routine
+  * GC Time
 
 
 ### 13.8 Backup
