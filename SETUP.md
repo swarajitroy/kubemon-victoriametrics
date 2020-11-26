@@ -2932,16 +2932,48 @@ Forwarding from [::1]:8080 -> 8080
 ### 13.7 Monitoring
 ---
 
-VictoriaMetrics exports internal metrics in Prometheus format at /metrics page. These metrics may be collected by vmagent or Prometheus by adding the corresponding scrape config to it. Alternatively they can be self-scraped by setting -selfScrapeInterval command-line flag to duration greater than 0. For example, -selfScrapeInterval=10s would enable self-scraping of /metrics page with 10 seconds interval.
+VictoriaMetrics exports internal metrics in Prometheus format at /metrics page. These metrics may be collected by vmagent or Prometheus by adding the corresponding scrape config to it. Alternatively they can be self-scraped by setting -selfScrapeInterval command-line flag to duration greater than 0. For example, -selfScrapeInterval=10s would enable self-scraping of /metrics page with 10 seconds interval. https://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+
 
 | ID | Task | Remarks
 | ----------- | ----------- | ------ |
-| A | Install ArgoCD | |
-| B | Connect to Kubernetes |
-| C | Connect to Source Repository |
+| A | Configure Victoriametric to self scrape its /metric endpoint  | |
+| B | Install Grafana Dashboard for Standalone VictoriaMetrics |
+| C | Important Telemetry  |
+
+#### 13.7.A Configure Victoriametric to self scrape
+---
+
+```
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ cat victoriametric-statefulset.yaml
+
+containers:
+      - name: victoria-metrics
+        image: victoriametrics/victoria-metrics
+        env:
+        - name: HTTPAUTH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: username
+        - name: HTTPAUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vmetrics-auth-secret
+              key: password
+        args:
+            - "-httpAuth.username=$(HTTPAUTH_USERNAME)"
+            - "-httpAuth.password=$(HTTPAUTH_PASSWORD)"
+            - "-selfScrapeInterval=30s"
+            - "--tls=true"
+            - "--tlsCertFile=/etc/victoriametric-secrets/vmetrics-cert.pem"
+            - "--tlsKeyFile=/etc/victoriametric-secrets/vmetrics-private-key.pem"
 
 
-https://victoria-metrics-headless-service.default.svc.cluster.local:8428/metrics
+```
+
+#### 13.7.B Configure Victoriametric to self scrape
+---
 
 ### 13.8 Backup
 ---
