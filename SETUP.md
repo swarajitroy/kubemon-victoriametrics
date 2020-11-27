@@ -3033,5 +3033,12 @@ https://github.com/VictoriaMetrics/VictoriaMetrics#monitoring
 #### 13.8.A Installing Alert Manager
 ---
 
+Alertmanager is configured via an YAML file - alertmanager.yaml. It contains 3 major sections, global, route ad receiver. For the most simple case - we must configure 1 route and 1 receiver. We will use PagerDuty as our alert receiver. It is accomplished by a pager duty integration key to be set at the alertmanager.yaml. Then the content of the alertmanager will be created as a Secret and we will mount that as a volume to the AlertManager pod. 
+
+```
+
+```
+
+
 ### 13.9 Backup
 ---
