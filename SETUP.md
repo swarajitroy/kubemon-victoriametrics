@@ -3024,8 +3024,14 @@ https://github.com/VictoriaMetrics/VictoriaMetrics#monitoring
 | ID | Task | Remarks
 | ----------- | ----------- | ------ |
 | A | Installing Alert Manager  | |
-| B | Configure Grafana alerts to Alert Manager for VictoriaMetrics  |
-| C | Demo |
+| B | Configure Prometheus for AppMetrics 01 instance   |
+| C | Configure Prometheus for AppMetrics 02 instance   |
+| D | Configure Grafana alerts to Alert Manager for VictoriaMetrics health |
+| E | Install VM Alert |
+| F | Configure VM Alert for AppMetrics 01+02 instance  |
+
+#### 13.8.A Installing Alert Manager
+---
 
 ### 13.9 Backup
 ---
