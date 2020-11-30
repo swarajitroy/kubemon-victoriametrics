@@ -3037,6 +3037,116 @@ Alertmanager is configured via an YAML file - alertmanager.yaml. It contains 3 m
 
 ```
 
+Swarajits-MacBook-Air:alertmanager swarajitroy$ cat alertmanager-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-configmap
+  labels:
+    name: alertmanager-configmap
+data:
+  alertmanager.yml: |-
+    global:
+
+    route:
+      receiver: team-pager
+
+    receivers:
+      - name: team-pager
+        pagerduty_configs:
+        - service_key: mnpop
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl apply -f alertmanager-configmap.yaml
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl get configmaps
+NAME                                  DATA   AGE
+alertmanager-configmap                1      137m
+prometheus-01-server-configmap        1      20d
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ cat alertmanager-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      name: alertmanager
+      labels:
+        app: alertmanager
+    spec:
+      containers:
+      - name: alertmanager
+        image: prom/alertmanager:latest
+        args:
+          - '--config.file=/etc/alertmanager/alertmanager.yml'
+          - '--storage.path=/alertmanager'
+        ports:
+        - name: alertmanager
+          containerPort: 9093
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/alertmanager
+        - name: alertmanager
+          mountPath: /alertmanager
+      volumes:
+      - name: config-volume
+        configMap:
+          name: alertmanager-configmap
+      - name: alertmanager
+        emptyDir: {}
+        
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl apply -f alertmanager-deployment.yaml
+   
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl get deployments
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+alertmanager              1/1     1            1           89m
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ cat alertmanager-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/alertmanager/metrics'
+  labels:
+    name: alertmanager
+  name: alertmanager-svc
+spec:
+  selector:
+    app: alertmanager
+  #type: NodePort
+  ports:
+  - name: alertmanager
+    protocol: TCP
+    port: 9093
+    targetPort: 9093
+    
+ Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl describe svc alertmanager-svc
+Name:              alertmanager-svc
+Namespace:         default
+Labels:            name=alertmanager
+Annotations:       kubectl.kubernetes.io/last-applied-configuration:
+                     {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"prometheus.io/path":"/alertmanager/metrics","prometheus.io/scrape":"true"}...
+                   prometheus.io/path: /alertmanager/metrics
+                   prometheus.io/scrape: true
+Selector:          app=alertmanager
+Type:              ClusterIP
+IP:                10.102.169.106
+Port:              alertmanager  9093/TCP
+TargetPort:        9093/TCP
+Endpoints:         172.17.0.3:9093
+Session Affinity:  None
+Events:            <none>
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl port-forward alertmanager-7f57bc4fdb-jvcg9 9093:9093
+
+
+
 ```
 
 
