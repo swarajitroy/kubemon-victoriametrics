@@ -3145,7 +3145,9 @@ Events:            <none>
 
 Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl port-forward alertmanager-7f57bc4fdb-jvcg9 9093:9093
 
-
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl run --restart=Never --rm -it --image infoblox/dnstools swararoy-dnstools
+If you don't see a command prompt, try pressing enter.
+dnstools# curl http://alertmanager-svc.default.svc.cluster.local:9093/
 
 ```
 
