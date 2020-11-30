@@ -3126,7 +3126,7 @@ spec:
     port: 9093
     targetPort: 9093
     
- Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl describe svc alertmanager-svc
+Swarajits-MacBook-Air:alertmanager swarajitroy$ kubectl describe svc alertmanager-svc
 Name:              alertmanager-svc
 Namespace:         default
 Labels:            name=alertmanager
@@ -3150,7 +3150,8 @@ If you don't see a command prompt, try pressing enter.
 dnstools# curl http://alertmanager-svc.default.svc.cluster.local:9093/
 
 ```
-
+#### 13.8.B Configure Prometheus for AppMetrics 01 instance
+---
 
 ### 13.9 Backup
 ---
