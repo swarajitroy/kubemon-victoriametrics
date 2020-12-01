@@ -3174,6 +3174,62 @@ Add the rules to Prometheus - (add to configmap)
 
 ```
 
+Swarajits-MacBook-Air:victoriametrics swarajitroy$ kubectl describe configmap prometheus-01-server-configmap
+Name:         prometheus-01-server-configmap
+Namespace:    default
+Labels:       name=prometheus-01-server-configmap
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"v1","data":{"prometheus.yml":"global:\n   scrape_interval:     15s \n   evaluation_interval: 15s \n   external_labels:\n   ...
+
+Data
+====
+prometheus.yml:
+----
+global:
+   scrape_interval:     15s
+   evaluation_interval: 15s
+   external_labels:
+       openshift_instance: SDI_CAAS_QA
+       datacenter: DC-01
+rule_files:
+   - rules.yml
+alerting:
+   alertmanagers:
+     - static_configs:
+        - targets:
+           - alertmanager-svc.default.svc.cluster.local:9093
+
+remote_write:
+  - url: https://victoria-metrics-headless-service.default.svc.cluster.local:8428/api/v1/write
+    basic_auth:
+     username: xyz
+     password: 123
+
+    tls_config:
+     ca_file: /etc/prom01-secrets/vmetrics-cert.pem
+scrape_configs:
+
+- job_name: 'prometheus'
+  static_configs:
+    - targets: ['localhost:9090']
+- job_name: 'appmetric-01'
+  static_configs:
+    - targets: ['appmetric-01-service.default.svc.cluster.local:8000']
+rules.yml:
+----
+groups:
+- name: Basic_alerts
+  rules:
+   - alert: Node_down
+     expr: up{job="appmetric-01"} == 0
+     for: 1m
+     labels:
+       severity: warning
+     annotations:
+       title: Node {{ $labels.instance }} is down
+       description: Failed to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 1 minutes. Appmetric-01  seems down.
+Events:  <none>
+
 ```
 
 ### 13.9 Backup
