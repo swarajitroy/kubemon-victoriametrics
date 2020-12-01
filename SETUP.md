@@ -3153,5 +3153,28 @@ dnstools# curl http://alertmanager-svc.default.svc.cluster.local:9093/
 #### 13.8.B Configure Prometheus for AppMetrics 01 instance
 ---
 
+Define the rules file for prometheus.
+
+```
+
+Swarajits-MacBook-Air:alertmanager swarajitroy$ cat rules.yaml
+groups:
+- name: Basic alerts
+  rules:
+  - alert: Node down
+    expr: up{job="appmetric-01"} == 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      title: Node {{ $labels.instance }} is down
+      description: Failed to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 1 minutes. Appmetric-01  seems down.
+```
+Add the rules to Prometheus - (add to configmap)
+
+```
+
+```
+
 ### 13.9 Backup
 ---
