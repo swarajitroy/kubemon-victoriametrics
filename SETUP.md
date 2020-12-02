@@ -3274,6 +3274,39 @@ vmalert-tlsfiles-secret    Opaque                                1      5s
 
 ```
 
+VMAlert also needs to get a rule file, describe in YAML. We have created a configmap with the rules. 
+
+```
+Swarajits-MacBook-Air:vmalert swarajitroy$ cat vmalert-configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vmalert-server-configmap
+  labels:
+    name: vmalert-server-configmap
+data:
+  vmalert-rules.yaml: |-
+     groups:
+     - name: TestGroup
+       rules:
+        - alert: Conns
+          expr: sum(swararoy_counter_total) > 500
+          annotations:
+            summary: "Too high connection number for {{$labels.instance}}"
+            description: "It is {{ $value }} connections for {{$labels.instance}}"
+
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl apply -f vmalert-configMap.yaml
+configmap/vmalert-server-configmap created
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl get configmap
+NAME                                  DATA   AGE
+vmalert-server-configmap              1      7s
+
+```
+
+Now we use authentication user name and password into ENV variable for the container, and load the certificate secret as a volume, as well as alert rule file configfile in volume as well. Everything gets defined as a deployment.
+
+
+
 
 ### 13.9 Backup
 ---
