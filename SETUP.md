@@ -3236,7 +3236,43 @@ Events:  <none>
 #### 13.8.D Install VM Alert
 ---
 
+VMAlert needs to connect to VictoriaMetrics. The VictoriaMetrics server is protected by userid/password via HTTP basic authentication and TLS. We create 2 secret primitives - one which holds the userid/password and one which holds the certitificate. 
 
+
+
+```
+Swarajits-MacBook-Air:vmalert swarajitroy$ cat vmalert-auth-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vmalert-secret
+data:
+  username: d23pY3M=
+  password: 45=
+
+
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl apply -f vmalert-auth-secret.yaml
+secret/vmalert-secret created
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl get secrets
+NAME                       TYPE                                  DATA   AGE
+vmalert-secret             Opaque                                2      4s
+
+Swarajits-MacBook-Air:vmalert swarajitroy$ cat vmalert-tlsfiles-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vmalert-tlsfiles-secret
+data:
+  vmetrics-cert.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM2akNDQXBHZ0F3SUJBZ0lKQU1YK1psT0dKcitXTUFvR0NDcUdTTTQ5QkFNQ01JSFVNUXN3Q1FZRFZRUUcKRXdKSlRqRVVNQklHQTFVRUNBd0xWMlZ6ZENCQ1pXNW5ZV3d4RURBT0JnTlZCQWNNQjB0dmJHdGhkR0V4RkRBUwpCZ05WQkFvTUMxVk1aV0Z5YmxWSVpXeHdNU0V3SHdZRFZRUUxEQmhKYm1admNtMWhkR2x2YmlCVVpXTm9ibTlzCmIyZHBaWE14SGpBY0Jna3Foa2lHOXcwQkNRRVdEMlZ0WVdsc1FHVnRZV2xzTG1OdmJURkVNRUlHQTFVRUF3dzcKZG1samRHOXlhV0V0YldWMGNtbGpjeTFvWldGa2JHVnpjeTF6WlhKMmFXTmxMbVJsWm1GMWJIUXVjM1pqTG1OcwpkWE4wWlhJdWJHOWpZV3d3SGhjTk1qQXhNVEkw=
+
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl apply -f vmalert-tlsfiles-secret.yaml
+secret/vmalert-tlsfiles-secret created
+Swarajits-MacBook-Air:vmalert swarajitroy$ kubectl get secrets
+NAME                       TYPE                                  DATA   AGE
+vmalert-tlsfiles-secret    Opaque                                1      5s
+
+
+```
 
 
 ### 13.9 Backup
